@@ -2,7 +2,7 @@
  * Automerge - CRDT library for managing distributed state
  * Used for handling the underlying document synchronization
  */
-import * as Automerge from '@automerge/automerge';
+import * as Automerge from '@automerge/automerge/slim';
 
 /**
  * Zustand state creator type

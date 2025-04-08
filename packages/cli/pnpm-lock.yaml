@@ -1030,6 +1030,9 @@ packages:
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
+  '@tonk/automerge-repo-fork@1.2.0':
+    resolution: {integrity: sha512-ViA5zESl56UcNqLByDjyEpreJqyKX5BxR4XaoEme4OiBb6SyguR03jrhLM6r1oc3EDrRgMFir0hC33bzXG7CLg==}
+
   '@tonk/keepsync@file:../keepsync':
     resolution: {directory: ../keepsync, type: directory}
     peerDependencies:
@@ -4729,12 +4732,31 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
+  '@tonk/automerge-repo-fork@1.2.0(@types/node@22.13.10)(typescript@5.8.2)':
+    dependencies:
+      '@automerge/automerge': 2.2.8
+      bs58check: 3.0.1
+      cbor-x: 1.6.0
+      debug: 4.4.0
+      eventemitter3: 5.0.1
+      fast-sha256: 1.3.0
+      tiny-typed-emitter: 2.1.0
+      ts-node: 10.9.2(@types/node@22.13.10)(typescript@5.8.2)
+      uuid: 9.0.1
+      xstate: 5.19.2
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - supports-color
+      - typescript
+
   '@tonk/keepsync@file:../keepsync(@automerge/automerge@2.2.8)(@types/node@22.13.10)(react@19.1.0)(typescript@5.8.2)(zustand@5.0.3(react@19.1.0))':
     dependencies:
       '@automerge/automerge': 2.2.8
-      '@automerge/automerge-repo': 1.2.1(@types/node@22.13.10)(typescript@5.8.2)
       '@automerge/automerge-repo-network-websocket': 1.2.1(@types/node@22.13.10)(typescript@5.8.2)
       '@automerge/automerge-wasm': 1.0.0-preview.0
+      '@tonk/automerge-repo-fork': 1.2.0(@types/node@22.13.10)(typescript@5.8.2)
       bs58check: 4.0.0
       chalk: 5.4.1
       crypto-js: 4.2.0

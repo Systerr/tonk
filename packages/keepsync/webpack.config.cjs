@@ -18,6 +18,10 @@ const commonConfig = {
         },
         exclude: /node_modules/,
       },
+      {
+        test: /\.wasm$/,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -32,7 +36,6 @@ const commonConfig = {
   externals: {
     'react': 'react',
     'zustand': 'zustand',
-    '@automerge/automerge': '@automerge/automerge',
   },
   optimization: {
     minimize: false,
