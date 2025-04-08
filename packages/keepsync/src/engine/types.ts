@@ -1,4 +1,4 @@
-import {DocumentId} from '@automerge/automerge-repo';
+import {DocumentId} from '@tonk/automerge-repo-fork';
 
 export type BlobId = string;
 

@@ -1,16 +1,13 @@
-import {DocumentData, SyncEngineOptions} from './types.js';
+import {SyncEngineOptions} from './types.js';
 import {
   DocumentId,
   Repo,
-  Doc,
-  DocHandle,
   DocHandleChangePayload,
-} from '@automerge/automerge-repo';
+} from '@tonk/automerge-repo-fork';
 import {WebSocketManager} from './connection/index.js';
 
 import {Storage} from './storage.js';
 import {logger} from '../utils/logger.js';
-import {throttle} from '../utils/throttle.js';
 
 export class SyncEngine {
   private connection: WebSocketManager;

@@ -1,6 +1,6 @@
 import {ConnectionOptions} from '../types.js';
 import {logger} from '../../utils/logger.js';
-import {Repo, PeerId} from '@automerge/automerge-repo';
+import {Repo, PeerId} from '@tonk/automerge-repo-fork';
 import {BrowserWebSocketClientAdapter} from '@automerge/automerge-repo-network-websocket';
 
 export class WebSocketManager {
@@ -29,28 +29,10 @@ export class WebSocketManager {
 
     // Create the repo with the adapter
     this.repo = new Repo({
-      network: [this.adapter],
+      network: [this.adapter as any],
       peerId: (options.clientId ||
         crypto.randomUUID?.() ||
         Math.random().toString(36).substring(2)) as unknown as PeerId,
-    });
-
-    // Set up event listeners for the adapter
-    this.setupEventListeners();
-  }
-
-  private setupEventListeners(): void {
-    // Listen for connection status changes
-    this.adapter.on('ready', () => {
-      logger.debug('WebSocket connected');
-      this.setOnlineStatus(true);
-    });
-
-    this.adapter.on('close', () => {
-      if (this.isOnline) {
-        logger.info('WebSocket closed, going to offline mode');
-        this.setOnlineStatus(false);
-      }
     });
   }
 

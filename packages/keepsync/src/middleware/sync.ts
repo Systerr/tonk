@@ -27,7 +27,7 @@ import {logger} from '../utils/logger.js';
  * The sync engine might not be immediately available on initialization
  */
 import {getSyncInstance} from '../engine/index.js';
-import {AutomergeUrl, parseAutomergeUrl} from '@automerge/automerge-repo';
+import {AutomergeUrl, parseAutomergeUrl} from '@tonk/automerge-repo-fork';
 import bs58check from 'bs58check';
 import {stringToUuidV4} from '../utils/uuid.js';
 import * as Uuid from 'uuid';
@@ -255,9 +255,8 @@ export const sync =
             if (docId === resolvedClientId) {
               try {
                 // Get the updated document from the sync engine
-                const updatedDoc = await syncEngine!.getDocument(
-                  resolvedClientId,
-                );
+                const updatedDoc =
+                  await syncEngine!.getDocument(resolvedClientId);
                 if (updatedDoc) {
                   // Update the Zustand store with the changes
                   handleDocChange(updatedDoc);

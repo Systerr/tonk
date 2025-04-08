@@ -1,5 +1,5 @@
 import {BlobId} from './types.js';
-import {DocumentId} from '@automerge/automerge-repo';
+import {DocumentId} from '@tonk/automerge-repo-fork';
 
 export class Storage {
   private db: IDBDatabase | null = null;
