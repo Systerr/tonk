@@ -1,7 +1,7 @@
 const path = require('path');
 
-module.exports = {
-  entry: './src/index.ts',
+// Common configuration for both environments
+const commonConfig = {
   mode: 'production',
   devtool: 'source-map',
   module: {
@@ -28,7 +28,26 @@ module.exports = {
       '.mjs': ['.mjs', '.mts'],
     },
     fullySpecified: false,
+  },
+  externals: {
+    'react': 'react',
+    'zustand': 'zustand',
+    '@automerge/automerge': '@automerge/automerge',
+  },
+  optimization: {
+    minimize: false,
+  },
+};
+
+// Browser-specific configuration
+const browserConfig = {
+  ...commonConfig,
+  name: 'browser',
+  entry: './src/browser.ts',
+  resolve: {
+    ...commonConfig.resolve,
     alias: {
+      // Ensure Node.js modules are not included
       'node-fetch': false,
       'ws': false,
       'fake-indexeddb': false,
@@ -41,7 +60,31 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: false, // Changed to false to preserve Node build
+    clean: false,
+    library: {
+      type: 'module',
+    },
+    module: true,
+    environment: {
+      module: true,
+    },
+  },
+  experiments: {
+    outputModule: true,
+    asyncWebAssembly: true,
+  },
+  target: ['web', 'es2020'],
+};
+
+// Node.js-specific configuration
+const nodeConfig = {
+  ...commonConfig,
+  name: 'node',
+  entry: './src/node.ts',
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist/node'),
+    clean: false,
     library: {
       type: 'module',
     },
@@ -55,16 +98,13 @@ module.exports = {
     asyncWebAssembly: true,
   },
   externals: {
-    'react': 'react',
-    'zustand': 'zustand',
-    '@automerge/automerge': '@automerge/automerge',
+    ...commonConfig.externals,
     'node-fetch': 'node-fetch',
     'ws': 'ws',
     'fake-indexeddb': 'fake-indexeddb'
   },
-  optimization: {
-    minimize: false,
-  },
-  target: ['web', 'es2020'],
-  plugins: [],
+  target: ['node', 'es2020'],
 };
+
+// Export both configurations
+module.exports = [browserConfig, nodeConfig];
