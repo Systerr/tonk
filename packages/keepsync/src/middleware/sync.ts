@@ -1,8 +1,3 @@
-/**
- * Automerge - CRDT library for managing distributed state
- * Used for handling the underlying document synchronization
- */
-import * as Automerge from '@automerge/automerge/slim';
 
 /**
  * Zustand state creator type
@@ -27,7 +22,15 @@ import {logger} from '../utils/logger.js';
  * The sync engine might not be immediately available on initialization
  */
 import {getSyncInstance} from '../engine/index.js';
-import {AutomergeUrl, parseAutomergeUrl} from '@tonk/automerge-repo-fork';
+import {
+  AutomergeUrl,
+  parseAutomergeUrl,
+  DocHandleChangePayload,
+  DocHandle,
+  Doc,
+  toJS,
+  getHeads
+} from '@tonk/automerge-repo-fork';
 import bs58check from 'bs58check';
 import {stringToUuidV4} from '../utils/uuid.js';
 import * as Uuid from 'uuid';
@@ -94,7 +97,7 @@ export const sync =
   (set, get, api) => {
     // The current Automerge document instance
     // This is null until initialization is complete
-    let currentDoc: Automerge.Doc<T> | null = null;
+    let currentDoc: Doc<T> | null = null;
 
     // Flag to track if sync has been initialized
     // Prevents duplicate initialization and unnecessary updates before initialization
@@ -160,20 +163,22 @@ export const sync =
      * It converts the Automerge document to plain JS and updates the Zustand store
      * without triggering the sync-back mechanism (to avoid loops).
      *
-     * @param newDoc - The updated Automerge document
+     * @param payload - The payload containing the updated Automerge document and other information
      */
-    const handleDocChange = (newDoc: Automerge.Doc<T>) => {
+    const handleDocChange = async (payload: DocHandleChangePayload<unknown>) => {
       // Safety check - skip if we received a null/undefined document
-      if (!newDoc) return;
+      if (!payload.doc) return;
 
       try {
+        // Ensure Automerge is initialized before using it
+        
         // Update our reference to the current document
-        currentDoc = newDoc;
-        logger.debug('Heads: ' + Automerge.getHeads(currentDoc));
+        currentDoc = payload.doc as Doc<T>;
+        logger.debug('Heads: ' + getHeads(currentDoc));
 
         // Convert the Automerge document to a plain JavaScript object
         // This is necessary because Zustand works with plain objects, not Automerge docs
-        const jsData = Automerge.toJS(newDoc);
+        const jsData = toJS(currentDoc);
 
         // Log the incoming changes for debugging
         logger.debugWithContext(
@@ -205,7 +210,7 @@ export const sync =
      *
      * The function is called when the sync engine becomes available.
      */
-    function initializeSync() {
+    async function initializeSync() {
       // Skip if already initialized to prevent duplicate initialization
       if (isSyncInit) return;
 
@@ -221,81 +226,18 @@ export const sync =
         return;
       }
 
-      // Start the initialization process
-      syncEngine
-        .getDocument(resolvedClientId)
-        .then(existingDoc => {
-          if (existingDoc) {
-            // CASE 1: Document already exists in the sync engine
-            // Store the document reference and update the Zustand store with its contents
-            currentDoc = existingDoc;
-            handleDocChange(existingDoc);
-          } else {
-            // CASE 2: Document doesn't exist yet, create a new one
-            // Get the current state from Zustand to use as initial document state
-            const initialState = get();
-
-            // Create the document in the sync engine
-            // This returns a promise that resolves when the document is created
-            return syncEngine!.createDocument(
-              resolvedClientId,
-              removeNonSerializable(initialState),
-            );
-          }
-        })
-        .then(() => {
-          // Set up the sync callback to handle changes from other peers
-          // We need to preserve any existing callback that might be set
-          const originalOnSync = syncEngine!.options.onSync;
-
-          // Replace the onSync callback with our own implementation
-          syncEngine!.options.onSync = async docId => {
-            // Only handle changes for our specific document
-            logger.info('GOT A SYNC CALLBACK');
-            if (docId === resolvedClientId) {
-              try {
-                // Get the updated document from the sync engine
-                const updatedDoc =
-                  await syncEngine!.getDocument(resolvedClientId);
-                if (updatedDoc) {
-                  // Update the Zustand store with the changes
-                  handleDocChange(updatedDoc);
-                  logger.info('First entry is it remote or no???!: ');
-                }
-              } catch (error) {
-                // Log any errors that occur during the sync process
-                logger.error(
-                  `Error in sync callback for ${resolvedClientId}:`,
-                  error,
-                );
-              }
-            }
-
-            // Call the original callback if it exists
-            // This allows multiple documents to be synced independently
-            if (originalOnSync) {
-              originalOnSync(docId);
-            }
-          };
-
-          // Mark initialization as complete
+      try {
+        
+        // Subscribe to document changes
+        const handle = syncEngine.getRepo()?.find(resolvedClientId) as DocHandle<T>;
+        if (handle) {
+          handle.on('change', handleDocChange);
           isSyncInit = true;
-        })
-        .catch(err => {
-          // Handle any errors during initialization
-          logger.error(
-            `Failed to initialize document ${resolvedClientId}:`,
-            err,
-          );
-
-          // Call the error callback if provided
-          if (options.onInitError) {
-            // Ensure we always pass an Error object
-            options.onInitError(
-              err instanceof Error ? err : new Error(String(err)),
-            );
-          }
-        });
+        }
+      } catch (error) {
+        logger.error(`Error initializing sync for ${resolvedClientId}:`, error);
+        options.onInitError?.(error as Error);
+      }
     }
 
     // Configuration for the initialization process

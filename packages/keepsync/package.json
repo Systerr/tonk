@@ -23,19 +23,17 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "pnpm run clean && pnpm run build:node && pnpm run build:web && pnpm run build:types",
-    "build:web": "npx webpack",
-    "build:node": "tsc -p tsconfig.node.json",
-    "build:types": "tsc --emitDeclarationOnly",
-    "dev": "npx webpack --mode development --watch || echo 'Web dev build failed'",
+    "build": "pnpm run clean && pnpm run build:browser && pnpm run build:node",
+    "build:browser": "vite build --config vite.config.ts",
+    "build:node": "vite build --config vite.config.ts --mode node",
+    "dev": "vite build --config vite.config.ts --watch",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
     "test": "vitest",
     "lint": "gts lint",
-    "compile": "tsc -p tsconfig.node.json",
     "fix": "gts fix",
     "prepare": "pnpm run build",
-    "pretest": "pnpm run compile",
+    "pretest": "tsc --noEmit",
     "posttest": "pnpm run lint"
   },
   "keywords": [
@@ -58,17 +56,14 @@
     "fake-indexeddb": "^6.0.0",
     "gts": "^6.0.2",
     "rimraf": "^5.0.5",
-    "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
-    "util": "^0.12.5",
-    "vitest": "^3.0.7",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3",
+    "vitest": "^3.0.7"
   },
   "dependencies": {
     "@automerge/automerge-repo-network-websocket": "^1.1.0",
-    "@automerge/automerge-wasm": "1.0.0-preview.0",
-    "@tonk/automerge-repo-fork": "^1.2.0",
+    "@tonk/automerge-repo-fork": "^1.2.2",
     "bs58check": "^4.0.0",
     "chalk": "^5.4.1",
     "crypto-js": "^4.2.0",
@@ -77,13 +72,7 @@
     "ws": "^8.18.1"
   },
   "peerDependencies": {
-    "@automerge/automerge": "^2.2.8",
     "react": "^19.0.0",
     "zustand": "^5.0.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "@automerge/automerge-repo": "^1.2.0"
-    }
   }
 }

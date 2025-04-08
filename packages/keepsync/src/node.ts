@@ -1,6 +1,8 @@
 // Node.js entry point - include polyfills
 import './polyfills.js';
 
+// Initialize Automerge WASM
+
 // Export the engine
 export * from './engine/index.js';
 
