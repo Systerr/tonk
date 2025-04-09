@@ -236,26 +236,17 @@ export class SyncEngine {
     }
 
     try {
-      const docHandle = this.repo!.find(id);
+      const docHandle = await this.repo!.find(id);
 
       // Check if the document handle is ready, wait for it if not
-      if (!docHandle.isReady()) {
+      if (docHandle.isReady()) {
         logger.debug(`Waiting for document to be ready: ${id}`);
         return;
       }
 
-      // Add this to log the document state before update
-      logger.info(`Before update, document ${id} state:`, docHandle.docSync());
-
       docHandle.change(updater);
 
       this.repo.flush();
-
-      // logger.debug('UDPATING A DOCUMENT: HEADS', docHandle.heads());
-      // logger.debug('UPDATING A DOCUMENT: DOC', await docHandle.doc());
-      // logger.debug('UPDATING A DOCUMENT: URL', docHandle.url);
-      // Add this to log the document state after update
-      logger.info(`After update, document ${id} state:`, docHandle.docSync());
 
       logger.debug(`Document updated with ID ${id}`);
     } catch (error) {
@@ -296,17 +287,17 @@ export class SyncEngine {
    * @param callback Function to call when the document changes
    * @returns Unsubscribe function
    */
-  subscribeToDocument(
+  async subscribeToDocument(
     id: DocumentId,
     callback: (doc: any) => void,
-  ): () => void {
+  ): Promise<() => void> {
     if (!this.repo) {
       logger.warn('Cannot subscribe to document: Repo not initialized');
       return () => {};
     }
 
     try {
-      const docHandle = this.repo.find(id);
+      const docHandle = await this.repo.find(id);
 
       const handleChange = (change: DocHandleChangePayload<any>) => {
         callback(change.doc);

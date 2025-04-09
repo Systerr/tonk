@@ -12,14 +12,14 @@ importers:
         specifier: ^2.2.8
         version: 2.2.8
       '@automerge/automerge-repo':
-        specifier: ^1.2.1
-        version: 1.2.1(@types/node@20.17.24)(typescript@5.8.2)
+        specifier: ^2.0.0-alpha.27
+        version: 2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)
       '@automerge/automerge-repo-network-websocket':
-        specifier: ^1.2.1
-        version: 1.2.1(@types/node@20.17.24)(typescript@5.8.2)
+        specifier: ^2.0.0-alpha.27
+        version: 2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)
       '@automerge/automerge-repo-storage-nodefs':
-        specifier: ^1.2.1
-        version: 1.2.1(@types/node@20.17.24)(typescript@5.8.2)
+        specifier: ^2.0.0-alpha.27
+        version: 2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)
       '@flystorage/aws-s3':
         specifier: ^1.0.1
         version: 1.0.1
@@ -94,17 +94,20 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@automerge/automerge-repo-network-websocket@1.2.1':
-    resolution: {integrity: sha512-n4sI6l51iBf0edWtX+vhk+sc8wJL72IVZl682SvzRHakA5CzyNZiC8sVzc142zRT3RDN12jCWGpwA2Voq6EXsQ==}
+  '@automerge/automerge-repo-network-websocket@2.0.0-collectionsync-alpha.1':
+    resolution: {integrity: sha512-AVsh5virUN+mIXPhCPhdVT+5A/WVSk4SBcR//kf4iR2doGKI7zsDXjTIzAHpJaWTe7wFQS/CmwAI7fPnIzdlOQ==}
 
-  '@automerge/automerge-repo-storage-nodefs@1.2.1':
-    resolution: {integrity: sha512-MEbz4vul3frdl+zWDQE3ELBNjiC78QSOEb4reeEgCiGcoimLKxUmHvlQLxpiR209tw72Tf6RRFtvwoqV1I8TKw==}
+  '@automerge/automerge-repo-storage-nodefs@2.0.0-collectionsync-alpha.1':
+    resolution: {integrity: sha512-5nxvmHOY2eAuTKW0I9Lh1AHkA/a7kA8xJZjF6wEXQMoBvabFvA27Ta0ixG5BrhMD0RALu3D6MT93GvwVKKm/LQ==}
 
-  '@automerge/automerge-repo@1.2.1':
-    resolution: {integrity: sha512-uEBr4bM01aSWkEt2tDKQxfW0Pahz2zbTTn4sRJfeKJlAg2SLr4QepFJ+3Tp4CNEkkU485olfnKYf6gt7uilMZQ==}
+  '@automerge/automerge-repo@2.0.0-collectionsync-alpha.1':
+    resolution: {integrity: sha512-IRjwNOHOCL/E+qqKAqyLro/K/MrTCTsBGyXwlvgN19lHV0v2mMngXJUHF3iSGS2DY7nTeP4dSzGR/8+uFXDLSQ==}
 
   '@automerge/automerge@2.2.8':
     resolution: {integrity: sha512-kP6Z9lIkNeIGe/jhF8SUQAgUMwVjtXCBL0eZEgQGCoWvPNTPcg8fnQco28XkYBrfkkuqiEUAbdHhJmSp0y79ug==}
+
+  '@automerge/automerge@3.0.0-collectionsync-alpha.1':
+    resolution: {integrity: sha512-FO7QCjMz0pdoNxotVaH84X2sJKZdSYrjo6VHuVwFkQB0N/PQ0EHWi7N6knd9/JC+tIAzhGS3rb4xQwXITsewcg==}
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -2939,9 +2942,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@automerge/automerge-repo-network-websocket@1.2.1(@types/node@20.17.24)(typescript@5.8.2)':
+  '@automerge/automerge-repo-network-websocket@2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)':
     dependencies:
-      '@automerge/automerge-repo': 1.2.1(@types/node@20.17.24)(typescript@5.8.2)
+      '@automerge/automerge-repo': 2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)
       cbor-x: 1.6.0
       debug: 4.4.0
       eventemitter3: 5.0.1
@@ -2956,9 +2959,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@automerge/automerge-repo-storage-nodefs@1.2.1(@types/node@20.17.24)(typescript@5.8.2)':
+  '@automerge/automerge-repo-storage-nodefs@2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)':
     dependencies:
-      '@automerge/automerge-repo': 1.2.1(@types/node@20.17.24)(typescript@5.8.2)
+      '@automerge/automerge-repo': 2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)
       rimraf: 5.0.10
     transitivePeerDependencies:
       - '@swc/core'
@@ -2967,9 +2970,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@automerge/automerge-repo@1.2.1(@types/node@20.17.24)(typescript@5.8.2)':
+  '@automerge/automerge-repo@2.0.0-collectionsync-alpha.1(@types/node@20.17.24)(typescript@5.8.2)':
     dependencies:
-      '@automerge/automerge': 2.2.8
+      '@automerge/automerge': 3.0.0-collectionsync-alpha.1
       bs58check: 3.0.1
       cbor-x: 1.6.0
       debug: 4.4.0
@@ -2987,6 +2990,10 @@ snapshots:
       - typescript
 
   '@automerge/automerge@2.2.8':
+    dependencies:
+      uuid: 9.0.1
+
+  '@automerge/automerge@3.0.0-collectionsync-alpha.1':
     dependencies:
       uuid: 9.0.1
 

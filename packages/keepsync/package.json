@@ -3,19 +3,13 @@
   "version": "0.3.3",
   "description": "A reactive sync engine framework for use with Tonk apps",
   "type": "module",
-  "main": "./dist/node/index.js",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "node": "./dist/node/index.js",
-      "browser": "./dist/index.js",
-      "import": {
-        "node": "./dist/node/index.js",
-        "browser": "./dist/index.js",
-        "default": "./dist/index.js"
-      },
+      "import": "./dist/index.js",
       "default": "./dist/index.js"
     }
   },
@@ -25,16 +19,14 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "pnpm run clean && pnpm run build:node && pnpm run build:web && pnpm run build:types",
-    "build:web": "npx webpack --config-name browser",
-    "build:node": "npx webpack --config-name node",
+    "build": "pnpm run clean && webpack && pnpm run build:types",
     "build:types": "tsc --emitDeclarationOnly",
-    "dev": "npx webpack --mode development --watch || echo 'Web dev build failed'",
+    "dev": "webpack --mode development --watch",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
     "test": "vitest",
     "lint": "gts lint",
-    "compile": "tsc -p tsconfig.node.json",
+    "compile": "tsc -p tsconfig.json",
     "fix": "gts fix",
     "prepare": "pnpm run build",
     "pretest": "pnpm run compile",
@@ -69,8 +61,8 @@
   },
   "dependencies": {
     "@automerge/automerge": "^2.2.8",
-    "@automerge/automerge-repo-network-websocket": "^1.1.0",
-    "@tonk/automerge-repo-fork": "^1.2.2",
+    "@automerge/automerge-repo-network-websocket": "^2.0.0-alpha.27",
+    "@tonk/automerge-repo-fork": "^2.0.0-alpha.27.2",
     "bs58check": "^4.0.0",
     "chalk": "^5.4.1",
     "crypto-js": "^4.2.0",
@@ -81,10 +73,5 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "zustand": "^5.0.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "@tonk/automerge-repo-fork": "link:../../../../Library/pnpm/global/5/node_modules/@tonk/automerge-repo-fork"
-    }
   }
 }

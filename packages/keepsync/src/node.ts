@@ -8,7 +8,7 @@ import {next as Automerge} from '@automerge/automerge/slim';
 // Initialize WASM for Node.js environment
 try {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const wasmPath = path.resolve(__dirname, 'automerge_wasm_bg.wasm');
+  const wasmPath = path.resolve(__dirname, 'node_automerge_wasm_bg.wasm');
 
   if (fs.existsSync(wasmPath)) {
     const wasmBuffer = fs.readFileSync(wasmPath);
