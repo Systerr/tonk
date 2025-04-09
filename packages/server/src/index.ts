@@ -105,10 +105,6 @@ export class TonkRepoServer {
       res.send('pong');
     });
 
-    this.app.get('/', (_req, res) => {
-      res.send(`👍 Tonk Automerge Server is running`);
-    });
-
     // If apiProxy is configured, use proxy middleware
     if (this.options.apiProxy) {
       this.app.use('/api', cors());

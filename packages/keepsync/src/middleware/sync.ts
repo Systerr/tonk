@@ -1,10 +1,4 @@
 /**
- * Automerge - CRDT library for managing distributed state
- * Used for handling the underlying document synchronization
- */
-import * as Automerge from '@automerge/automerge';
-
-/**
  * Zustand state creator type
  * Represents the function that creates the initial state and actions for a Zustand store
  */
@@ -27,7 +21,13 @@ import {logger} from '../utils/logger.js';
  * The sync engine might not be immediately available on initialization
  */
 import {getSyncInstance} from '../engine/index.js';
-import {AutomergeUrl, parseAutomergeUrl} from '@tonk/automerge-repo-fork';
+import {
+  AutomergeUrl,
+  parseAutomergeUrl,
+  Doc,
+  toJS,
+  getHeads,
+} from '@tonk/automerge-repo-fork';
 import bs58check from 'bs58check';
 import {stringToUuidV4} from '../utils/uuid.js';
 import * as Uuid from 'uuid';
@@ -94,7 +94,7 @@ export const sync =
   (set, get, api) => {
     // The current Automerge document instance
     // This is null until initialization is complete
-    let currentDoc: Automerge.Doc<T> | null = null;
+    let currentDoc: Doc<T> | null = null;
 
     // Flag to track if sync has been initialized
     // Prevents duplicate initialization and unnecessary updates before initialization
@@ -162,18 +162,18 @@ export const sync =
      *
      * @param newDoc - The updated Automerge document
      */
-    const handleDocChange = (newDoc: Automerge.Doc<T>) => {
+    const handleDocChange = (newDoc: Doc<T>) => {
       // Safety check - skip if we received a null/undefined document
       if (!newDoc) return;
 
       try {
         // Update our reference to the current document
         currentDoc = newDoc;
-        logger.debug('Heads: ' + Automerge.getHeads(currentDoc));
+        logger.debug('Heads: ' + getHeads(currentDoc));
 
         // Convert the Automerge document to a plain JavaScript object
         // This is necessary because Zustand works with plain objects, not Automerge docs
-        const jsData = Automerge.toJS(newDoc);
+        const jsData = toJS(newDoc);
 
         // Log the incoming changes for debugging
         logger.debugWithContext(
@@ -255,8 +255,9 @@ export const sync =
             if (docId === resolvedClientId) {
               try {
                 // Get the updated document from the sync engine
-                const updatedDoc =
-                  await syncEngine!.getDocument(resolvedClientId);
+                const updatedDoc = await syncEngine!.getDocument(
+                  resolvedClientId,
+                );
                 if (updatedDoc) {
                   // Update the Zustand store with the changes
                   handleDocChange(updatedDoc);

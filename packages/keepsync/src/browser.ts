@@ -8,11 +8,12 @@ export * from './middleware/index.js';
 // Export the core functionality
 export * from './core/index.js';
 
-import * as Automerge from '@automerge/automerge';
-import * as AutomergeWasm from '@automerge/automerge-wasm';
+// Import WASM for automerge
+import wasmUrl from '@automerge/automerge/automerge.wasm';
+import {next as Automerge} from '@automerge/automerge/slim';
 
-// Initialize Automerge with WASM
-Automerge.use(AutomergeWasm);
+// Initialize WASM
+await Automerge.initializeWasm(wasmUrl);
 
 // Re-export specific functions for easier access
 export {

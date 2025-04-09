@@ -10,8 +10,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "node": "./dist/node/index.js",
+      "browser": "./dist/index.js",
       "import": {
         "node": "./dist/node/index.js",
+        "browser": "./dist/index.js",
         "default": "./dist/index.js"
       },
       "default": "./dist/index.js"
@@ -24,8 +26,8 @@
   ],
   "scripts": {
     "build": "pnpm run clean && pnpm run build:node && pnpm run build:web && pnpm run build:types",
-    "build:web": "npx webpack",
-    "build:node": "tsc -p tsconfig.node.json",
+    "build:web": "npx webpack --config-name browser",
+    "build:node": "npx webpack --config-name node",
     "build:types": "tsc --emitDeclarationOnly",
     "dev": "npx webpack --mode development --watch || echo 'Web dev build failed'",
     "type-check": "tsc --noEmit",
@@ -66,9 +68,9 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@automerge/automerge": "^2.2.8",
     "@automerge/automerge-repo-network-websocket": "^1.1.0",
-    "@automerge/automerge-wasm": "1.0.0-preview.0",
-    "@tonk/automerge-repo-fork": "^1.2.0",
+    "@tonk/automerge-repo-fork": "^1.2.2",
     "bs58check": "^4.0.0",
     "chalk": "^5.4.1",
     "crypto-js": "^4.2.0",
@@ -77,13 +79,12 @@
     "ws": "^8.18.1"
   },
   "peerDependencies": {
-    "@automerge/automerge": "^2.2.8",
     "react": "^19.0.0",
     "zustand": "^5.0.3"
   },
   "pnpm": {
     "overrides": {
-      "@automerge/automerge-repo": "^1.2.0"
+      "@tonk/automerge-repo-fork": "link:../../../../Library/pnpm/global/5/node_modules/@tonk/automerge-repo-fork"
     }
   }
 }

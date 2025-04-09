@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@automerge/automerge-repo': ^1.2.0
+  '@tonk/automerge-repo-fork': link:../../../../Library/pnpm/global/5/node_modules/@tonk/automerge-repo-fork
 
 importers:
 
@@ -17,12 +17,9 @@ importers:
       '@automerge/automerge-repo-network-websocket':
         specifier: ^1.1.0
         version: 1.2.1(@types/node@20.17.19)(typescript@5.7.3)
-      '@automerge/automerge-wasm':
-        specifier: 1.0.0-preview.0
-        version: 1.0.0-preview.0
       '@tonk/automerge-repo-fork':
-        specifier: ^1.2.0
-        version: 1.2.0(@types/node@20.17.19)(typescript@5.7.3)
+        specifier: link:../../../../Library/pnpm/global/5/node_modules/@tonk/automerge-repo-fork
+        version: link:../../../../Library/pnpm/global/5/node_modules/@tonk/automerge-repo-fork
       bs58check:
         specifier: ^4.0.0
         version: 4.0.0
@@ -98,9 +95,6 @@ packages:
 
   '@automerge/automerge-repo@1.2.1':
     resolution: {integrity: sha512-uEBr4bM01aSWkEt2tDKQxfW0Pahz2zbTTn4sRJfeKJlAg2SLr4QepFJ+3Tp4CNEkkU485olfnKYf6gt7uilMZQ==}
-
-  '@automerge/automerge-wasm@1.0.0-preview.0':
-    resolution: {integrity: sha512-RE368OYtMc8UCh3FtbIrw9dRc8i5kYLrvj9nb6USPyhpvttAWJhvfQ6pjGgT1nlm7rUEhqMXrf13PsH/KNKJmQ==}
 
   '@automerge/automerge@2.2.8':
     resolution: {integrity: sha512-kP6Z9lIkNeIGe/jhF8SUQAgUMwVjtXCBL0eZEgQGCoWvPNTPcg8fnQco28XkYBrfkkuqiEUAbdHhJmSp0y79ug==}
@@ -478,9 +472,6 @@ packages:
     resolution: {integrity: sha512-U0FaE5O1BCpZSeE6gBl3c5ObhePQSfk9vDRToMmTkbhCOgW4jqvtS5LGyQ76L1fH8sM0keRp4uDTsbjiUyjk0g==}
     cpu: [x64]
     os: [win32]
-
-  '@tonk/automerge-repo-fork@1.2.0':
-    resolution: {integrity: sha512-ViA5zESl56UcNqLByDjyEpreJqyKX5BxR4XaoEme4OiBb6SyguR03jrhLM6r1oc3EDrRgMFir0hC33bzXG7CLg==}
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -2368,8 +2359,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@automerge/automerge-wasm@1.0.0-preview.0': {}
-
   '@automerge/automerge@2.2.8':
     dependencies:
       uuid: 9.0.1
@@ -2627,25 +2616,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.34.8':
     optional: true
-
-  '@tonk/automerge-repo-fork@1.2.0(@types/node@20.17.19)(typescript@5.7.3)':
-    dependencies:
-      '@automerge/automerge': 2.2.8
-      bs58check: 3.0.1
-      cbor-x: 1.6.0
-      debug: 4.4.0
-      eventemitter3: 5.0.1
-      fast-sha256: 1.3.0
-      tiny-typed-emitter: 2.1.0
-      ts-node: 10.9.2(@types/node@20.17.19)(typescript@5.7.3)
-      uuid: 9.0.1
-      xstate: 5.19.2
-    transitivePeerDependencies:
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - supports-color
-      - typescript
 
   '@tsconfig/node10@1.0.11': {}
 
