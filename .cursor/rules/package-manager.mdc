@@ -1,0 +1,25 @@
+---
+description: Package manager standards and conventions for Tonk projects
+globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+---
+
+# Package Manager Standards
+
+## PNPM Usage
+- Use pnpm instead of npm for all package management operations
+- Run build commands with 'pnpm run build'
+- Create packages with 'pnpm pack'
+- Install dependencies with 'pnpm install'
+- Add dependencies with 'pnpm add'
+
+## Scripts
+- Execute scripts using 'pnpm run' syntax
+- Maintain consistent command structure in package.json files
+- Use consistent command names across projects
+- Leverage pnpm workspaces for monorepo management
+
+## Dependencies
+- Use workspace protocol syntax (workspace:*) for internal dependencies
+- Lock dependencies with pnpm-lock.yaml
+- Manage dependencies at the appropriate workspace level
+- Hoist common dependencies to reduce duplication 

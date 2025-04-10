@@ -1,0 +1,27 @@
+---
+description: UI accessibility standards and keyboard navigation patterns for Tonk
+globs: **/*.tsx, **/*.jsx, **/*.css, components/**/*
+---
+
+# UI Accessibility
+
+## Keyboard Navigation
+- Implement keyboard navigation using arrow keys and vim-style (j/k) controls
+- Maintain focusable elements with proper tabIndex attributes
+- Track focused state with useState hooks
+- Use refs to programmatically focus elements when needed
+- Apply visible focus indicators for all interactive elements
+
+## Focus Management
+- Add distinct focus styles to differentiate from hover states
+- Use background-color changes for focus indicators (rgba(255, 255, 255, 0.1))
+- Include text-decoration: underline for focused text elements
+- Add outline: none when custom focus styles are implemented
+- Ensure all interactive elements have accessible focus states
+
+## Loading States
+- Display loading overlays for long-running operations
+- Include animated spinners with appropriate aria attributes
+- Use fade-in animations for overlay transitions
+- Provide clear textual indication of the current operation
+- Prevent user interaction during critical loading operations 
