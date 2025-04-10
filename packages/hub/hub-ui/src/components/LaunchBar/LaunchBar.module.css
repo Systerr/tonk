@@ -8,13 +8,32 @@
 
 .buttonArea {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   align-items: flex-end;
-  justify-content: flex-end;
-  gap: 0.25rem;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .buttonArea a {
   color: #00aaff;
   text-decoration: underline;
+}
+
+.tabButtons {
+  display: flex;
+  gap: 0.5rem;
+  order: 2;
+  margin-top: 0.5rem;
+}
+
+.smallerIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.selectedTab {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid #4ade80;
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.4);
 }

@@ -258,7 +258,7 @@ export class TerminalManager {
         ws.send(
           JSON.stringify({
             type: "command",
-            command: "npm install && tonk markdown README.md\r",
+            command: "npm install\r",
           })
         );
       }
@@ -277,7 +277,6 @@ export class TerminalManager {
     event: MessageEvent
   ): Promise<void> {
     if (!this.terminal?.element) return;
-    console.log("handleWebSocketMessage", location, event);
 
     try {
       let data;

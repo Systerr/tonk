@@ -21,6 +21,116 @@
   min-height: 0; /* Allow flex items to shrink below content size */
 }
 
+/* Readme Viewer Styles */
+.readmeContainer {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: transparent;
+  color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  padding: 16px;
+  line-height: 1.6;
+}
+
+.readmeContainer :global(h1) {
+  font-size: 1.8em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.3em;
+}
+
+.readmeContainer :global(h2) {
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.readmeContainer :global(h3) {
+  font-size: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.readmeContainer :global(a) {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.readmeContainer :global(a:hover) {
+  text-decoration: underline;
+}
+
+.readmeContainer :global(code) {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.readmeContainer :global(pre) {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.readmeContainer :global(pre code) {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+}
+
+.readmeContainer :global(blockquote) {
+  border-left: 3px solid rgba(255, 255, 255, 0.2);
+  padding-left: 1em;
+  margin-left: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.readmeContainer :global(img) {
+  max-width: 100%;
+  height: auto;
+}
+
+.readmeContainer :global(table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.readmeContainer :global(th),
+.readmeContainer :global(td) {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.readmeContainer :global(th) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.readmeLoading,
+.readmeError {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.readmeError {
+  color: #ff6b6b;
+}
+
 .terminalContainer {
   width: 100%;
   flex: 1;

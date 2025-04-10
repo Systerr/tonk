@@ -1,7 +1,13 @@
-export const ls = async (dirPath: string) => {
+import { getConfig } from "./config";
+
+export const ls = async (...dirPath: string[]) => {
   try {
+    const fullPath = await platformSensitiveJoin(dirPath);
+    if (!fullPath) {
+      return [];
+    }
     // Launch the app with the selected docId
-    return await window.electronAPI.ls(dirPath);
+    return await window.electronAPI.ls(fullPath);
   } catch (error: unknown) {
     console.error("Error reading directory:", error);
     if (error instanceof Error) {
