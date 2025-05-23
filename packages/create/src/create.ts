@@ -213,7 +213,15 @@ const createApp = async (options: { init: boolean }) => {
     let projectPath = options.init ? process.cwd() : null;
     await createProject(finalProjectName, plan, templateName, projectPath);
 
-    console.log("🎉 Tonk project ready for vibe coding!");
+    // Log success message with instructions
+    console.log(`
+🎉 Tonk project ready for vibe coding!
+
+${chalk.cyan("Next steps:")}
+${!options.init ? chalk.bold(`  cd ${finalProjectName}`) : ""}
+  ${chalk.bold("npm install")} (or ${chalk.bold("yarn")})
+  ${chalk.bold("npm run dev")} (or ${chalk.bold("yarn dev")})
+`);
   } catch (error) {
     console.error(chalk.red("Error:"), error);
     process.exit(1);
