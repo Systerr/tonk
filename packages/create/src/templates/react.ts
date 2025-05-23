@@ -53,14 +53,17 @@ export async function createReactTemplate(
     }
 
     // Create tonk.config.json with project plan
+    // Remove workers from the plan to avoid duplication
+    const { workers: planWorkers, ...planWithoutWorkers } = plan;
+
     const tonkConfig: {
       name: string;
-      plan: ProjectPlan & { useWorkers?: boolean; workers?: string[] };
+      plan: Omit<typeof plan, "workers">;
       template: string;
       workers?: string[];
     } = {
       name: projectName,
-      plan,
+      plan: planWithoutWorkers,
       template: "react",
     };
 
